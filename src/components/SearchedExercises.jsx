@@ -27,6 +27,8 @@ const SearchedExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         exerciseOptions
       )
 
+      console.log(exerciseData)
+
       const searchExercises = exerciseData.filter(
         (exercise) =>
           exercise.name.toLowerCase().includes(search) ||
