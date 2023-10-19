@@ -3,6 +3,7 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 
 import { exerciseOptions, fetchData } from '../utils/fetchData'
 import HorizontalScrollBar from './HorizontalScrollBar'
+import { Cable } from '@mui/icons-material'
 
 const SearchedExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState('')
@@ -26,15 +27,14 @@ const SearchedExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         'https://exercisedb.p.rapidapi.com/exercises',
         exerciseOptions
       )
-
       console.log(exerciseData)
 
       const searchExercises = exerciseData.filter(
-        (exercise) =>
-          exercise.name.toLowerCase().includes(search) ||
-          exercise.target.toLowerCase().includes(search) ||
-          exercise.equipment.toLowerCase().includes(search) ||
-          exercise.bodyPart.toLowerCase().includes(search)
+        (item) =>
+          item.name.toLowerCase().includes(search) ||
+          item.target.toLowerCase().includes(search) ||
+          item.equipment.toLowerCase().includes(search) ||
+          item.bodyPart.toLowerCase().includes(search)
       )
 
       setSearch('')

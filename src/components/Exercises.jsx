@@ -6,28 +6,45 @@ import { exerciseOptions, fetchData } from '../utils/fetchData'
 import ExerciseCart from './ExerciseCart'
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-  console.log(exercises)
-  // useEffect(() => {
-  //   const fetchExercisesData = async () => {
-  //     let exerciseData = []
+  const [currentPage, setCurrentPage] = useState(1)
+  const exercisesPerPage = 2
 
-  //     if (bodyPart === 'all') {
-  //       exerciseData = await fetchData(
-  //         'https://exercisedb.p.rapidapi.com/exercises',
-  //         exerciseOptions
-  //       )
-  //     } else {
-  //       exerciseData = await fetchData(
-  //         'https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}',
-  //         exerciseOptions
-  //       )
-  //     }
+  const indexOfLastExercise = currentPage * exercisesPerPage
 
-  //     setExercises(exerciseData)
-  //   }
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage
 
-  //   fetchExercisesData()
-  // }, [bodyPart])
+  const currentExercises = exercises.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  )
+
+  const paginate = (e, value) => {
+    setCurrentPage(value)
+
+    window.scrollTo({ top: 500, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      let exercisesData = []
+
+      if (bodyPart === 'all') {
+        exercisesData = await fetchData(
+          'https://exercisedb.p.rapidapi.com/exercises',
+          exerciseOptions
+        )
+      } else {
+        exercisesData = await fetchData(
+          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
+          exerciseOptions
+        )
+      }
+
+      setExercises(exercisesData)
+    }
+
+    fetchExercisesData()
+  }, [bodyPart])
 
   return (
     <Box id="exercises" sx={{ mt: { lg: '110px' } }} mt="50px" p="20px">
@@ -40,9 +57,22 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         flexWrap="wrap"
         justifyContent="center"
       >
-        {exercises.map((exercise, index) => (
+        {currentExercises.map((exercise, index) => (
           <ExerciseCart key={index} exercise={exercise} />
         ))}
+      </Stack>
+      <Stack mt="100px" alignItems="center">
+        {exercises.length > 2 && (
+          <Pagination
+            color="standard"
+            shape="rounded"
+            defaultPage={1}
+            count={Math.ceil(exercises.length / exercisesPerPage)}
+            page={currentPage}
+            onChange={paginate}
+            size="large"
+          />
+        )}
       </Stack>
     </Box>
   )
