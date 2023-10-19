@@ -6,24 +6,6 @@ import { exerciseOptions, fetchData } from '../utils/fetchData'
 import ExerciseCart from './ExerciseCart'
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const exercisesPerPage = 2
-
-  const indexOfLastExercise = currentPage * exercisesPerPage
-
-  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage
-
-  const currentExercises = exercises.slice(
-    indexOfFirstExercise,
-    indexOfLastExercise
-  )
-
-  const paginate = (e, value) => {
-    setCurrentPage(value)
-
-    window.scrollTo({ top: 500, behavior: 'smooth' })
-  }
-
   useEffect(() => {
     const fetchExercisesData = async () => {
       let exercisesData = []
@@ -40,11 +22,31 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         )
       }
 
+      console.log(exercisesData)
+
       setExercises(exercisesData)
     }
 
     fetchExercisesData()
   }, [bodyPart])
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const exercisesPerPage = 2
+
+  const indexOfLastExercise = currentPage * exercisesPerPage
+
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage
+
+  const currentExercises = exercises.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  )
+
+  const paginate = (e, value) => {
+    setCurrentPage(value)
+
+    window.scrollTo({ top: 1700, behavior: 'smooth' })
+  }
 
   return (
     <Box id="exercises" sx={{ mt: { lg: '110px' } }} mt="50px" p="20px">
