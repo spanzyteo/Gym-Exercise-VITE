@@ -11,10 +11,6 @@ const BodyCalculator = () => {
   const [height, setHeight] = useState('')
   const [bmiData, setBmiData] = useState(null)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-  }
-
   useEffect(() => {
     const fetchBodyType = async () => {
       const bmiCalculatorUrl =
@@ -25,7 +21,7 @@ const BodyCalculator = () => {
         calculateOptions
       )
 
-      console.log(bmiTypeData)
+      console.log(bmiTypeData.bmi)
 
       setBmiData(bmiTypeData)
     }
@@ -42,7 +38,6 @@ const BodyCalculator = () => {
         height={height}
         setHeight={setHeight}
         bmiData={bmiData}
-        handleSubmit={handleSubmit}
       />
     </Box>
   )
