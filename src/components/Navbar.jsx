@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Stack } from '@mui/material'
 
 import logo from '../assets/assets/images/Logo.png'
+import { Style } from '@mui/icons-material'
 
 const Navbar = () => {
   return (
@@ -29,7 +30,7 @@ const Navbar = () => {
           style={{
             textDecoration: 'none',
             color: '#3A1212',
-            borderBottom: '3px solid #FF2625',
+            borderBottom: <Link /> && '3px solid #FF2625',
           }}
         >
           Home
@@ -40,6 +41,12 @@ const Navbar = () => {
         >
           Exercises
         </a>
+        <Link
+          to="/body-calculator"
+          style={{ textDecoration: 'none', color: '#3A1212' }}
+        >
+          Body Calculator
+        </Link>
       </Stack>
     </Stack>
   )

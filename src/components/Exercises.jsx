@@ -22,8 +22,6 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         )
       }
 
-      console.log(exercisesData)
-
       setExercises(exercisesData)
     }
 

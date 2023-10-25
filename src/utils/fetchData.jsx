@@ -21,3 +21,11 @@ export const youtubeOptions = {
     'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
   },
 }
+
+export const calculateOptions = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
+    'X-RapidAPI-Host': 'body-mass-index-bmi-calculator.p.rapidapi.com',
+  },
+}
