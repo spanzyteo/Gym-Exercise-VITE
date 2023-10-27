@@ -9,36 +9,42 @@ const BodyCalculator = () => {
   // const [bodyType, setBodyType] = useState(null)
   const [weight, setWeight] = useState('')
   const [height, setHeight] = useState('')
-  const [bmiData, setBmiData] = useState(null)
+  const [heightError, setHeightError] = useState('')
+  const [age, setAge] = useState('')
+  const [bmiData, setBmiData] = useState('')
 
-  useEffect(() => {
-    const fetchBodyType = async () => {
-      const bmiCalculatorUrl =
-        'https://body-mass-index-bmi-calculator.p.rapidapi.com'
+  console.log(bmiData)
 
-      const bmiTypeData = await fetchData(
-        `${bmiCalculatorUrl}/metric?weight=${weight}&height=${height}`,
-        calculateOptions
-      )
+  const fetchBodyType = async () => {
+    const bmiCalculatorUrl = 'https://fitness-calculator.p.rapidapi.com'
 
-      console.log(bmiTypeData.bmi)
+    const bmiTypeData = await fetchData(
+      `${bmiCalculatorUrl}/bmi?age=${age}&weight=${weight}&height=${height}`,
+      calculateOptions
+    )
 
-      setBmiData(bmiTypeData)
-    }
+    // console.log(bmiTypeData)
 
-    fetchBodyType()
-  }, [])
+    setBmiData(bmiTypeData)
+  }
 
   return (
     <Box>
       <CalculatorBanner />
-      <CalculateBanner
-        weight={weight}
-        setWeight={setWeight}
-        height={height}
-        setHeight={setHeight}
-        bmiData={bmiData}
-      />
+      <Box sx={{ flexDirection: { lg: 'row', xs: 'column' } }}>
+        <CalculateBanner
+          weight={weight}
+          setWeight={setWeight}
+          height={height}
+          setHeight={setHeight}
+          age={age}
+          setAge={setAge}
+          bmiData={bmiData}
+          fetchBodyType={fetchBodyType}
+          heightError={heightError}
+          setHeightError={setHeightError}
+        />
+      </Box>
     </Box>
   )
 }

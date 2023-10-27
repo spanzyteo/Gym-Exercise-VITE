@@ -25,7 +25,7 @@ export const youtubeOptions = {
 export const calculateOptions = {
   method: 'GET',
   headers: {
-    'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'body-mass-index-bmi-calculator.p.rapidapi.com',
+    'X-RapidAPI-Key': '176fb98f1amsh63317c931e97b0ap1436c1jsn69703e8a0c14',
+    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com',
   },
 }
