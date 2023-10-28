@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -8,33 +8,38 @@ import {
   Button,
 } from '@mui/material'
 
-const CalculateBanner = ({
-  weight,
-  setWeight,
-  height,
-  setHeight,
-  age,
-  setAge,
-  bmiData,
-  fetchBodyType,
-  heightError,
-  setHeightError,
-}) => {
-  const handleHeightChange = (event) => {
-    const enteredValue = event.target.value
-    if (enteredValue >= 130 && enteredValue <= 230) {
-      setHeight(enteredValue)
+const CalculateBanner = ({ weight, setWeight, age, setAge }) => {
+  const [height, setHeight] = useState('')
+  const [heightError, setHeightError] = useState('')
+  const [bmiData, setBmiData] = useState('')
+
+  const fetchBodyType = async () => {
+    const bmiCalculatorUrl = 'https://fitness-calculator.p.rapidapi.com'
+
+    const bmiTypeData = await fetchData(
+      `${bmiCalculatorUrl}/bmi?age=${age}&weight=${weight}&height=${height}`,
+      calculateOptions
+    )
+    setBmiData(bmiTypeData)
+  }
+
+  const handleHeightChange = (e) => {
+    const heightValue = parseInt(e.target.value)
+    setHeight(heightValue)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (height >= 130 && height <= 230) {
       setHeightError('')
+      // setHeight(heightValue)
+      fetchBodyType()
     } else {
       setHeight('')
       setHeightError('Height must be between 130 to 230 cm')
     }
-  }
-
-  const handleSubmit = async (e) => {
-    // console.log('form submitted')
-    e.preventDefault()
-    fetchBodyType()
+    console.log(height)
+    console.log(heightError)
   }
   console.log(bmiData)
 
@@ -69,6 +74,7 @@ const CalculateBanner = ({
             color="primary"
           />
           <TextField
+            id="height"
             label="height (kg)"
             variant="outlined"
             margin="normal"
@@ -77,12 +83,12 @@ const CalculateBanner = ({
             onChange={handleHeightChange}
             error={!!heightError}
             helperText={heightError}
-            inputProps={{
-              inputProps: {
-                min: 130,
-                max: 230,
-              },
-            }}
+            // inputProps={{
+            //   inputprops: {
+            //     min: 130,
+            //     max: 230,
+            //   },
+            // }}
             color="primary"
           />
           <Button
