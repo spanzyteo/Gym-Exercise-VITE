@@ -8,10 +8,13 @@ import {
   Button,
 } from '@mui/material'
 
-const CalculateBanner = ({ weight, setWeight, age, setAge }) => {
+const CalculateBanner = () => {
   const [height, setHeight] = useState('')
   const [heightError, setHeightError] = useState('')
   const [bmiData, setBmiData] = useState('')
+  const [weight, setWeight] = useState('')
+  const [weightError, setWeightError] = useState('')
+  const [age, setAge] = useState('')
 
   const fetchBodyType = async () => {
     const bmiCalculatorUrl = 'https://fitness-calculator.p.rapidapi.com'
@@ -28,6 +31,11 @@ const CalculateBanner = ({ weight, setWeight, age, setAge }) => {
     setHeight(heightValue)
   }
 
+  const handleWeightChange = (e) => {
+    const weightValue = parseInt(e.target.value)
+    setWeight(weightValue)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (height >= 130 && height <= 230) {
@@ -36,7 +44,14 @@ const CalculateBanner = ({ weight, setWeight, age, setAge }) => {
       fetchBodyType()
     } else {
       setHeight('')
-      setHeightError('Height must be between 130 to 230 cm')
+      setHeightError('Height must be between 130 to 230 kg')
+    }
+    if (weight >= 160 && weight <= 260) {
+      setWeightError('')
+      fetchBodyType()
+    } else {
+      setWeight('')
+      setWeightError('Weight must be between 160 to 260 kg')
     }
     console.log(height)
     console.log(heightError)
@@ -70,7 +85,9 @@ const CalculateBanner = ({ weight, setWeight, age, setAge }) => {
             margin="normal"
             type="number"
             value={weight}
-            onChange={(e) => setWeight(e.target.value)}
+            onChange={handleWeightChange}
+            error={!!weightError}
+            helperText={weightError}
             color="primary"
           />
           <TextField
