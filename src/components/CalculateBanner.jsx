@@ -12,10 +12,13 @@ import { fetchData, calculateOptions } from '../utils/fetchData'
 const CalculateBanner = () => {
   const [height, setHeight] = useState('')
   const [heightError, setHeightError] = useState('')
+  const [heightError2, setHeightError2] = useState('')
   const [bmiData, setBmiData] = useState('')
   const [weight, setWeight] = useState('')
   const [weightError, setWeightError] = useState('')
+  const [weightError2, setWeightError2] = useState('')
   const [age, setAge] = useState('')
+  const [ageError, setAgeError] = useState('')
 
   const fetchBodyType = async () => {
     const bmiCalculatorUrl = 'https://fitness-calculator.p.rapidapi.com'
@@ -44,27 +47,37 @@ const CalculateBanner = () => {
         setHeightError('')
       } else {
         setHeight('')
-        setHeightError('Height must be between 130 to 230 kg')
-        throw new Error('invalid height')
+        throw new Error('Height must be between 130 to 230 kg')
       }
       if (weight >= 40 && weight <= 160) {
         setWeightError('')
       } else {
         setWeight('')
-        setWeightError('Weight must be between 40 to 160 kg')
-        throw new Error('invalid weight')
-      }
-      if (weight === '') {
-        setWeightError('please input weight')
-        throw new Error('Missing weight')
-      }
-      if (height === '') {
-        setHeightError('Missing height')
+        throw new Error('Weight must be between 40 to 160 kg')
       }
 
       await fetchBodyType()
     } catch (error) {
-      console.error('Error:', error.message)
+      setHeightError(error.message)
+      setWeightError(error.message)
+    }
+
+    try {
+      if (height === '') {
+        throw new Error('Please input Height value')
+      }
+      setHeightError2(null)
+      if (weight === '') {
+        throw new Error('Please input Weight value')
+      }
+      setWeightError2(null)
+      if (age === '') {
+        throw new Error('Please input Age')
+      }
+    } catch (error) {
+      setWeightError2(error.message)
+      setHeightError2(error.message)
+      setAgeError(error.message)
     }
   }
   console.log(bmiData)
@@ -88,6 +101,8 @@ const CalculateBanner = () => {
             type="number"
             value={age}
             onChange={(e) => setAge(e.target.value)}
+            error={!!ageError}
+            helperText={ageError}
             color="primary"
           />
           <TextField
@@ -97,8 +112,8 @@ const CalculateBanner = () => {
             type="number"
             value={weight}
             onChange={handleWeightChange}
-            error={!!weightError}
-            helperText={weightError}
+            error={!!weightError || !!weightError2}
+            helperText={weightError || weightError2}
             color="primary"
           />
           <TextField
@@ -109,8 +124,8 @@ const CalculateBanner = () => {
             type="number"
             value={height}
             onChange={handleHeightChange}
-            error={!!heightError}
-            helperText={heightError}
+            error={!!heightError || !!heightError2}
+            helperText={heightError || heightError2}
             color="primary"
           />
           <Button
@@ -124,7 +139,7 @@ const CalculateBanner = () => {
       </form>
 
       {bmiData && (
-        <Box sx={{ marginTop: '20px' }}>
+        <Box sx={{ marginTop: '20px', bgcolor: 'ff2625' }}>
           <Typography variant="h5" fontWeight={700}>
             Result
           </Typography>
