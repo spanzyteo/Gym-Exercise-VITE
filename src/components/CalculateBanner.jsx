@@ -12,11 +12,9 @@ import { fetchData, calculateOptions } from '../utils/fetchData'
 const CalculateBanner = () => {
   const [height, setHeight] = useState('')
   const [heightError, setHeightError] = useState('')
-  const [heightError2, setHeightError2] = useState('')
-  const [bmiData, setBmiData] = useState('')
+  const [bmiData, setBmiData] = useState(null)
   const [weight, setWeight] = useState('')
   const [weightError, setWeightError] = useState('')
-  const [weightError2, setWeightError2] = useState('')
   const [age, setAge] = useState('')
   const [ageError, setAgeError] = useState('')
 
@@ -42,42 +40,47 @@ const CalculateBanner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     try {
       if (height >= 130 && height <= 230) {
         setHeightError('')
       } else {
-        setHeight('')
-        throw new Error('Height must be between 130 to 230 kg')
+        if (height === '') {
+          setHeightError('Please input Height value')
+        } else {
+          setHeight('')
+          setHeightError('Height must be between 130 to 230 kg')
+        }
       }
       if (weight >= 40 && weight <= 160) {
         setWeightError('')
       } else {
-        setWeight('')
-        throw new Error('Weight must be between 40 to 160 kg')
+        if (weight === '') {
+          setWeightError('Please input Weight value')
+        } else {
+          setWeight('')
+          setWeightError('Weight must be between 40 to 160 kg')
+        }
       }
-
-      await fetchBodyType()
-    } catch (error) {
-      setHeightError(error.message)
-      setWeightError(error.message)
-    }
-
-    try {
-      if (height === '') {
-        throw new Error('Please input Height value')
-      }
-      setHeightError2(null)
-      if (weight === '') {
-        throw new Error('Please input Weight value')
-      }
-      setWeightError2(null)
       if (age === '') {
-        throw new Error('Please input Age')
+        setAgeError('Please input Age value')
       }
+      if (
+        !!age &&
+        height >= 130 &&
+        height <= 230 &&
+        weight >= 40 &&
+        weight <= 160
+      ) {
+        await fetchBodyType()
+      }
+      setTimeout(() => {
+        setWeightError(null)
+        setHeightError(null)
+        setAgeError(null)
+      }, 3000)
     } catch (error) {
-      setWeightError2(error.message)
-      setHeightError2(error.message)
-      setAgeError(error.message)
+      console.error(error)
     }
   }
   console.log(bmiData)
@@ -112,8 +115,8 @@ const CalculateBanner = () => {
             type="number"
             value={weight}
             onChange={handleWeightChange}
-            error={!!weightError || !!weightError2}
-            helperText={weightError || weightError2}
+            error={!!weightError}
+            helperText={weightError}
             color="primary"
           />
           <TextField
@@ -124,8 +127,8 @@ const CalculateBanner = () => {
             type="number"
             value={height}
             onChange={handleHeightChange}
-            error={!!heightError || !!heightError2}
-            helperText={heightError || heightError2}
+            error={!!heightError}
+            helperText={heightError}
             color="primary"
           />
           <Button
