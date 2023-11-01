@@ -7,6 +7,7 @@ import {
   Container,
   Button,
 } from '@mui/material'
+import { fetchData, calculateOptions } from '../utils/fetchData'
 
 const CalculateBanner = () => {
   const [height, setHeight] = useState('')
@@ -38,23 +39,33 @@ const CalculateBanner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (height >= 130 && height <= 230) {
-      setHeightError('')
-      // setHeight(heightValue)
-      fetchBodyType()
-    } else {
-      setHeight('')
-      setHeightError('Height must be between 130 to 230 kg')
+    try {
+      if (height >= 130 && height <= 230) {
+        setHeightError('')
+      } else {
+        setHeight('')
+        setHeightError('Height must be between 130 to 230 kg')
+        throw new Error('invalid height')
+      }
+      if (weight >= 40 && weight <= 160) {
+        setWeightError('')
+      } else {
+        setWeight('')
+        setWeightError('Weight must be between 40 to 160 kg')
+        throw new Error('invalid weight')
+      }
+      if (weight === '') {
+        setWeightError('please input weight')
+        throw new Error('Missing weight')
+      }
+      if (height === '') {
+        setHeightError('Missing height')
+      }
+
+      await fetchBodyType()
+    } catch (error) {
+      console.error('Error:', error.message)
     }
-    if (weight >= 160 && weight <= 260) {
-      setWeightError('')
-      fetchBodyType()
-    } else {
-      setWeight('')
-      setWeightError('Weight must be between 160 to 260 kg')
-    }
-    console.log(height)
-    console.log(heightError)
   }
   console.log(bmiData)
 
@@ -100,12 +111,6 @@ const CalculateBanner = () => {
             onChange={handleHeightChange}
             error={!!heightError}
             helperText={heightError}
-            // inputProps={{
-            //   inputprops: {
-            //     min: 130,
-            //     max: 230,
-            //   },
-            // }}
             color="primary"
           />
           <Button
