@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Stack } from '@mui/material'
 
 import logo from '../assets/assets/images/Logo.png'
 import { Style } from '@mui/icons-material'
 
 const Navbar = () => {
+  const location = useLocation()
   return (
     <Stack
       direction="row"
@@ -30,7 +31,7 @@ const Navbar = () => {
           style={{
             textDecoration: 'none',
             color: '#3A1212',
-            borderBottom: <Link /> && '3px solid #FF2625',
+            borderBottom: location.pathname === '/' && '3px solid #FF2625',
           }}
         >
           Home
@@ -43,7 +44,12 @@ const Navbar = () => {
         </a>
         <Link
           to="/body-calculator"
-          style={{ textDecoration: 'none', color: '#3A1212' }}
+          style={{
+            textDecoration: 'none',
+            color: '#3A1212',
+            borderBottom:
+              location.pathname === '/body-calculator' && '3px solid #FF2625',
+          }}
         >
           Body Calculator
         </Link>

@@ -142,13 +142,26 @@ const CalculateBanner = () => {
       </form>
 
       {bmiData && (
-        <Box sx={{ marginTop: '20px', bgcolor: 'ff2625' }}>
-          <Typography variant="h5" fontWeight={700}>
+        <Box
+          sx={{
+            marginTop: '20px',
+            bgcolor: '#ff2625',
+            width: '330px',
+            p: '9px',
+            borderRadius: '8px',
+            opacity: '0.4',
+          }}
+        >
+          <Typography variant="h5" fontWeight={700} color="#ffff">
             Result
           </Typography>
-          <Typography variant="h6">BMI: {bmiData.data.bmi}</Typography>
-          <Typography variant="h6">Health: {bmiData.data.health}</Typography>
-          <Typography variant="h6">
+          <Typography variant="h6" color="#ffff">
+            BMI: {bmiData.data.bmi}
+          </Typography>
+          <Typography variant="h6" color="#ffff">
+            Health: {bmiData.data.health}
+          </Typography>
+          <Typography variant="h6" color="#ffff">
             Healthy BMI Range: {bmiData.data.healthy_bmi_range}
           </Typography>
         </Box>
