@@ -14,8 +14,8 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
         borderTop: bodyPart === item ? '4px solid #ff2625' : '',
         backgroundColor: '#fff',
         borderBottomLeftRadius: '20px',
-        width: '20vw',
-        height: '20vw',
+        width: { sm: '20vw', xs: '30vw' },
+        height: { sm: '20vw', xs: '30vw' },
         cursor: 'pointer',
         gap: '47px',
       }}
@@ -24,19 +24,29 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
         window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' })
       }}
     >
-      <img
-        src={Icon}
-        alt="dumbbell"
-        style={{ width: '40px', height: '40px' }}
-      />
-      <Typography
-        fontSize="24px"
-        fontWeight="bold"
-        color="#3A1212"
-        textTransform="capitalize"
+      <Stack
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ gap: { sm: '10px', xs: '5px' } }}
       >
-        {item}
-      </Typography>
+        <img
+          src={Icon}
+          alt="dumbbell"
+          style={{
+            width: '40px',
+            height: '40px',
+          }}
+        />
+        <Typography
+          fontSize={{ sm: '24px', xs: '18px' }}
+          fontWeight="bold"
+          color="#3A1212"
+          textTransform="capitalize"
+        >
+          {item}
+        </Typography>
+      </Stack>
     </Stack>
   )
 }

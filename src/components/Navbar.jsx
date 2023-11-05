@@ -12,11 +12,11 @@ const Navbar = () => {
       direction="row"
       justifyContent="space-around"
       sx={{
-        gap: { sm: '122px', xs: '5px' },
+        gap: { sm: '100px', xs: '0px' },
         mt: { sm: '32px', xs: '20px' },
         justifyContent: 'none',
       }}
-      px="20px"
+      px="10px"
     >
       <Link to="/">
         <img
@@ -25,7 +25,15 @@ const Navbar = () => {
           style={{ width: '48px', height: '48px', margin: '0 20px' }}
         />
       </Link>
-      <Stack direction="row" gap="40px" fontSize="24px" alignItems="flex-end">
+      <Stack
+        direction={{ sm: 'row', xs: 'column' }}
+        gap={{ sm: '40px', xs: '6px' }}
+        fontSize="24px"
+        alignItems="flex-end"
+        sx={{
+          ml: { sm: '10px', xs: '90px' },
+        }}
+      >
         <Link
           to="/"
           style={{

@@ -86,7 +86,7 @@ const CalculateBanner = () => {
   console.log(bmiData)
 
   return (
-    <Box sx={{ mt: { lg: '80px', xs: '20px' }, ml: { sm: '60px' } }}>
+    <Box sx={{ mt: { lg: '80px', xs: '20px' }, ml: { sm: '60px' } }} p="20px">
       <Typography variant="h3" fontWeight={700} mb="30px">
         BMI Calculator
       </Typography>
