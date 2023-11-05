@@ -31,7 +31,7 @@ const Navbar = () => {
         fontSize="24px"
         alignItems="flex-end"
         sx={{
-          ml: { sm: '10px', xs: '60px' },
+          ml: { sm: '10px', xs: '90px' },
         }}
       >
         <Link
@@ -59,7 +59,7 @@ const Navbar = () => {
               location.pathname === '/body-calculator' && '3px solid #FF2625',
           }}
         >
-          Body Calculator
+          BMI Calculator
         </Link>
       </Stack>
     </Stack>
