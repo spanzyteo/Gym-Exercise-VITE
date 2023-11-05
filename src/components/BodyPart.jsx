@@ -14,8 +14,8 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
         borderTop: bodyPart === item ? '4px solid #ff2625' : '',
         backgroundColor: '#fff',
         borderBottomLeftRadius: '20px',
-        width: { sm: '20vw', xs: '30vw' },
-        height: { sm: '20vw', xs: '30vw' },
+        width: { sm: '20vw', xs: '40vw' },
+        height: { sm: '20vw', xs: '40vw' },
         cursor: 'pointer',
         gap: '47px',
       }}
