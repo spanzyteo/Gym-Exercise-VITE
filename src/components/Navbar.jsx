@@ -31,7 +31,7 @@ const Navbar = () => {
         fontSize="24px"
         alignItems="flex-end"
         sx={{
-          ml: { sm: '10px', xs: '75px' },
+          ml: { sm: '10px', xs: '60px' },
         }}
       >
         <Link
